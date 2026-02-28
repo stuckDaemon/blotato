@@ -7,15 +7,26 @@ TERMINAL 1 - spin up infrastructure
 docker-compose up
 ```
 
-TERMINAL 2 - initialize queues
+TERMINAL 2 - initialize resources
 ```
 ./scripts/init.sh
+cd ingest
+yarn install
+yarn db:migrations
 ```
 
 
 TERMINAL 3 - run api
 ```
 cd api
+yarn install
+yarn dev
+```
+
+
+TERMINAL 4 - run worker
+```
+cd ingest
 yarn install
 yarn dev
 ```

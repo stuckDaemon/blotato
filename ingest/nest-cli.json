@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src",
+  "compilerOptions": {
+    "deleteOutDir": true
+  },
+  "monorepo": true,
+  "projects": {
+    "worker": {
+      "type": "application",
+      "root": "src/worker/persist",
+      "entryFile": "main",
+      "sourceRoot": "src/worker/persist"
+    }
+  }
+}

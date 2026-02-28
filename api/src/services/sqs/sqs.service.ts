@@ -16,7 +16,7 @@ export class SqsService {
       },
     });
 
-    this.queueUrl = process.env.SQS_QUEUE_URL!;
+    this.queueUrl = process.env.SOCIAL_QUEUE_URL!;
   }
 
   async sendMessage(payload: unknown): Promise<void> {
