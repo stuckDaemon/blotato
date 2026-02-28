@@ -6,6 +6,10 @@ module.exports = {
       CREATE EXTENSION IF NOT EXISTS pgcrypto;
     `);
 
+    await queryInterface.sequelize.query(`
+      CREATE SEQUENCE IF NOT EXISTS global_post_sequence;
+    `);
+
     await queryInterface.addColumn('SequelizeMeta', 'createdAt', {
       type: Sequelize.DATE,
       allowNull: false,

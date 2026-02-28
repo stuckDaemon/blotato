@@ -1,0 +1,21 @@
+
+###
+# curl -X POST http://localhost:3000/posts 
+#  -H "Content-Type: application/json" 
+#  -d '{
+#    "userId": "user-123",
+#    "platform": "tiktok",
+#    "content": "my awesome post",
+#    "desiredTime": "2026-03-01T09:00:00Z"
+#  }'
+POST http://localhost:3000/posts
+Content-Type: application/json
+
+{
+  "userId": "user-123",
+  "platform": "tiktok",
+  "content": "my awesome post",
+  "desiredTime": "2026-03-01T09:00:00Z"
+}
+
+###

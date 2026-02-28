@@ -1,39 +1,5 @@
 # Deterministic Global Posting Scheduler
 
-
-## Setup
-TERMINAL 1 - spin up infrastructure
-```
-docker-compose up
-```
-
-TERMINAL 2 - initialize resources
-```
-./scripts/init.sh
-cd ingest
-yarn install
-yarn db:migrations
-```
-
-
-TERMINAL 3 - run api
-```
-cd api
-yarn install
-yarn dev
-```
-
-
-TERMINAL 4 - run worker
-```
-cd ingest
-yarn install
-yarn dev
-```
-
-
-
-
 ## Problem Statement
 
 Let:
@@ -67,6 +33,68 @@ We do **not** define simultaneity using:
 Instead, we define a **system-level logical time**.
 
 ---
+
+
+## Setup
+
+### TERMINAL 1 — Spin up infrastructure
+```bash
+docker-compose up
+````
+### TERMINAL 2 — Initialize resources
+
+```bash
+./scripts/init.sh
+cd ingest
+yarn install
+yarn db:migrations local
+```
+If migrations fail due to restarts or schema changes, reset the database:
+
+```bash
+yarn db:drop local
+yarn db:create local
+yarn db:migrations local
+```
+This ensures a clean database state.
+
+### TERMINAL 3 — Run API
+
+```bash
+cd api
+yarn install
+yarn dev
+```
+
+### TERMINAL 4 — Run Worker
+
+```bash
+cd ingest
+yarn install
+yarn dev
+```
+
+### TERMINAL 5 — Stress Test
+
+```bash
+./scripts/test.sh 10000
+```
+
+The number `10000` is customizable.
+
+### Validate Invariant
+
+Connect to the database and run:
+
+```sql
+SELECT COUNT(*), COUNT(DISTINCT "sequenceId") FROM posts;
+```
+
+Both values must match.
+This confirms the structural guarantee:
+* Each post receives a unique logical timestamp
+* The probability of two posts occurring at the same logical time is zero
+
 
 ## System Model
 
